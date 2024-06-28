@@ -1,6 +1,6 @@
 import fastify from "fastify";
 
-import router from "./routes/router";
+import router from "../routes/router";
 
 const app = fastify();
 
