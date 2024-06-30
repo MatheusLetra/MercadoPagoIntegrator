@@ -25,8 +25,8 @@ export class MercadoPago {
 
     this.status = EMercadoPagoStatus.CLIENT_INITIALIZED;
   }
-
-  createNewPayment(paymentBody: IMercadoPagoPaymentBody, requestOptions: IMercadoPagoRequestOptions) {
+  
+  createAPayment(paymentBody: IMercadoPagoPaymentBody, requestOptions: IMercadoPagoRequestOptions) {
 
     const payment = new Payment(this.client);
 
@@ -47,6 +47,37 @@ export class MercadoPago {
       })
       .catch((error) => {
         this.status = EMercadoPagoStatus.PAYMENT_CREATING_ERROR;
+        console.log(error);
+      });
+  }
+
+  getAPayment(paymentId: string, requestOptions: IMercadoPagoRequestOptions) {
+    const payment = new Payment(this.client);
+
+    payment.get({
+      id: paymentId,
+      requestOptions
+    })
+      .then((paymentResponse) => {
+        this.status = EMercadoPagoStatus.PAYMENT_DETAILS_SEARCHED;
+        console.log(paymentResponse)
+      })
+      .catch((error) => {
+        this.status = EMercadoPagoStatus.PAYMENT_GETTING_ERROR;
+        console.log(error);
+      });
+  }
+
+  cancelAPayment(paymentId: string, requestOptions: IMercadoPagoRequestOptions) {
+    const payment = new Payment(this.client);
+
+    payment.cancel({ id: paymentId, requestOptions })
+      .then((paymentResponse) => {
+        this.status = EMercadoPagoStatus.PAYMENT_CANCELED;
+        console.log(paymentResponse)
+      })
+      .catch((error) => {
+        this.status = EMercadoPagoStatus.PAYMENT_CANCELING_ERROR;
         console.log(error);
       });
   }
