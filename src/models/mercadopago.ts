@@ -6,8 +6,8 @@ import {
 import {
   EMercadoPagoStatus,
   IMercadoPagoConfigs,
-  IMercadoPagoPaymentBody,
-  IMercadoPagoRequestOptions
+  IMercadoPagoRequestOptions,
+  IPaymentRequestData
 } from "../interfaces/mercadopago";
 
 
@@ -25,8 +25,8 @@ export class MercadoPago {
 
     this.status = EMercadoPagoStatus.CLIENT_INITIALIZED;
   }
-  
-  createAPayment(paymentBody: IMercadoPagoPaymentBody, requestOptions: IMercadoPagoRequestOptions) {
+
+  async createAPayment(paymentBody: IPaymentRequestData, requestOptions: IMercadoPagoRequestOptions) {
 
     const payment = new Payment(this.client);
 
@@ -40,14 +40,14 @@ export class MercadoPago {
     };
 
 
-    payment.create({ body, requestOptions })
+    return await payment.create({ body, requestOptions })
       .then((paymentResponse) => {
         this.status = EMercadoPagoStatus.PAYMENT_CREATED;
-        console.log(paymentResponse)
+        return paymentResponse;
       })
       .catch((error) => {
         this.status = EMercadoPagoStatus.PAYMENT_CREATING_ERROR;
-        console.log(error);
+        return error;
       });
   }
 
