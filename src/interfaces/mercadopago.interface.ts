@@ -33,6 +33,22 @@ export interface IMercadoPagoPaymentBody {
   }
 }
 
+export interface Cause {
+  code: number
+  description: string
+  data: string
+}
+
+export interface IPaymentResponseErroData {
+  message: string
+  error: string
+  status: number
+  cause: Cause[]
+}
+
+
+
+
 export enum EMercadoPagoStatus {
   CLIENT_INITIALIZED = "CLIENT_INITIALIZED",
   PAYMENT_CREATED = "PAYMENT_CREATED",

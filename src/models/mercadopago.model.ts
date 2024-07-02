@@ -8,7 +8,7 @@ import {
   IMercadoPagoConfigs,
   IMercadoPagoRequestOptions,
   IPaymentRequestData
-} from "../interfaces/mercadopago";
+} from "../interfaces/mercadopago.interface";
 
 
 export class MercadoPago {

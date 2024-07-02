@@ -1,9 +1,15 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { PaymentResponse } from "mercadopago/dist/clients/payment/commonTypes";
 
-import { EMercadoPagoStatus, IMercadoPagoPaymentBody, IPaymentResponseData } from "../interfaces/mercadopago";
-import { MercadoPago } from "../models/mercadopago";
-import { ACCESS_TOKEN } from "../config";
+import {
+  EMercadoPagoStatus,
+  IMercadoPagoPaymentBody,
+  IPaymentResponseData,
+  IPaymentResponseErroData
+} from "../interfaces/mercadopago.interface";
+
+import { MercadoPago } from "../models/mercadopago.model";
+import { ACCESS_TOKEN } from "../config/mercadopago.config";
 
 export const MercadoPagoPaymentController = {
 
@@ -19,7 +25,7 @@ export const MercadoPagoPaymentController = {
       }
     });
 
-    let result: PaymentResponse = await mMercadoPago.createAPayment(
+    let result: PaymentResponse | any = await mMercadoPago.createAPayment(
       {
         description: payment.description,
         payer: {
@@ -34,15 +40,26 @@ export const MercadoPagoPaymentController = {
     );
 
     if (mMercadoPago.status === EMercadoPagoStatus.PAYMENT_CREATED) {
+
       let data: IPaymentResponseData = {
         id: result.id,
         payment_method_id: result.payment_method_id,
         qr_code: result?.point_of_interaction?.transaction_data?.qr_code,
         qr_code_base64: result?.point_of_interaction?.transaction_data?.qr_code_base64
       }
+
       res.status(201).send(data);
+
     } else if (mMercadoPago.status === EMercadoPagoStatus.PAYMENT_CREATING_ERROR) {
-      res.status(400).send(result);
+
+      let data: IPaymentResponseErroData = {
+        message: result?.message,
+        error: result?.error,
+        status: result?.status,
+        cause: result?.cause,
+      }
+
+      res.status(400).send(data);
     } else {
       res.status(500).send({ message: "Unexpected error, contact support" })
     }
