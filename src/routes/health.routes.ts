@@ -1,7 +1,9 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyInstance, FastifyListenOptions } from "../lib/fastify.lib";
 
-export const HealthRoutes = {
-  async Main(req: FastifyRequest, res: FastifyReply) {
-    res.status(200).send({ message: "Welcome to Mercado Pago Integrator Server" })
-  }
+import { HealthController } from "../controllers/health/health.controller";
+
+const HealthRouter = async (app: FastifyInstance, opts: FastifyListenOptions) => {
+  app.get('/health', HealthController.healthStatus);
 }
+
+export default HealthRouter;

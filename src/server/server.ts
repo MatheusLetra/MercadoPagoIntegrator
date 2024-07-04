@@ -1,26 +1,15 @@
-import fastify from "fastify";
-import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUI from "@fastify/swagger-ui";
-
-import { Options } from "../config/swagger.config";
-
-import router from "../routes/router";
-
+import 'dotenv/config'
+import { fastify, fastifySwagger, fastifySwaggerUI } from '../lib/fastify.lib'
+import { SwaggerLayout, SwaggerOptions } from "../config/swagger.config";
+import MercadoPagoRouter from "../routes/mercadopago.routes";
+import HealthRouter from '../routes/health.routes';
 
 const app = fastify();
+app.register(fastifySwagger, SwaggerLayout);
+app.register(fastifySwaggerUI, SwaggerOptions);
+app.register(HealthRouter, {})
+app.register(MercadoPagoRouter, {})
 
-app.register(fastifySwagger, Options);
-
-app.register(fastifySwaggerUI, {
-  routePrefix: '/docs',
-  uiConfig: {
-    docExpansion: 'full',
-    deepLinking: false
-  }
-});
-
-app.register(router, {})
-
-app.listen({ port: 3333 }).then(() => {
-  console.log("Server is running...");
+app.listen({ port: process.env.SERVER_PORT as number | undefined }).then(() => {
+  console.log(`Server is running on port ${process.env.SERVER_PORT}`);
 })

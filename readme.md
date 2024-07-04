@@ -8,8 +8,12 @@ Welcome to the Mercado Pago Integrator server application
 - On the Main folder run `npm install` and `npm run build` commands
 
 
-### Dependencies
+## Dependencies
 This application uses the below modules:
 
 - [Fastify](https://fastify.dev/)
-- [Mercado Pago](https://www.npmjs.com/package/mercadopago)
+- [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference)
+
+## Endpoints
+You can view the endpoint documentation at `localhost:port/docs`
+Example: `localhost:3333/docs`
