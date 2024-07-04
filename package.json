@@ -12,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^20.14.9",
+    "@types/uuid": "^10.0.0",
     "dotenv": "^16.4.5",
     "tsx": "^4.15.8",
     "typescript": "^5.5.2"
@@ -19,6 +20,7 @@
   "dependencies": {
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^4.0.0",
-    "fastify": "^4.28.0"
+    "fastify": "^4.28.0",
+    "uuid": "^10.0.0"
   }
 }
