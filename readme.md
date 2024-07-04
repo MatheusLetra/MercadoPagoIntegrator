@@ -13,6 +13,7 @@ This application uses the below modules:
 
 - [Fastify](https://fastify.dev/)
 - [Mercado Pago](https://www.mercadopago.com.br/developers/pt/reference)
+- [UUID](https://www.uuidgenerator.net/dev-corner/typescript)
 
 ## Endpoints
 You can view the endpoint documentation at `localhost:port/docs`
