@@ -19,7 +19,6 @@
   "dependencies": {
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^4.0.0",
-    "fastify": "^4.28.0",
-    "mercadopago": "^2.0.10"
+    "fastify": "^4.28.0"
   }
 }
