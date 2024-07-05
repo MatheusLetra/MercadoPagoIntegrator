@@ -1,6 +1,6 @@
 import { axios, axiosInstance, AxiosError } from "../lib/axios.lib";
-import { customerCreateBody, customerCreateResponse } from "../interfaces/customers.interfaces";
-import { httpErrorResponse } from "../interfaces/http.interfaces";
+import { ICustomerCreateBody, ICustomerCreateResponse } from "../interfaces/customers.interfaces";
+import { IHttpErrorResponse } from "../interfaces/http.interfaces";
 
 
 const ENDPOINT = "/customers";
@@ -12,10 +12,10 @@ export default class CustomerModel {
     this.status = 200;
   }
 
-  async create(customerData: customerCreateBody): Promise<customerCreateResponse | httpErrorResponse> {
+  async create(customerData: ICustomerCreateBody): Promise<ICustomerCreateResponse | IHttpErrorResponse> {
     try {
       let response = await axiosInstance.post(ENDPOINT, customerData);
-      let customerResponseData: customerCreateResponse = response.data;
+      let customerResponseData: ICustomerCreateResponse = response.data;
 
       this.status = 201;
       return customerResponseData;
@@ -26,7 +26,7 @@ export default class CustomerModel {
 
         console.error(`AxiosError: ${axiosError.message}`);
 
-        const errorResponse: httpErrorResponse = {
+        const errorResponse: IHttpErrorResponse = {
           status: axiosError.response?.status || 500,
           message: axiosError.response?.data?.message || axiosError.message,
           response: axiosError.response?.data,
@@ -38,7 +38,7 @@ export default class CustomerModel {
       } else {
         console.error(`Unexpected Error: ${error}`);
 
-        const errorResponse: httpErrorResponse = {
+        const errorResponse: IHttpErrorResponse = {
           status: 500,
           message: "An unexpected error occurred",
         };

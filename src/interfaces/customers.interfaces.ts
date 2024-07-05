@@ -1,8 +1,8 @@
-export interface customerCreateBody {
+export interface ICustomerCreateBody {
   email: string;
 }
 
-export interface customerCreateResponse {
+export interface ICustomerCreateResponse {
   id: string
   email: string
   first_name: string
