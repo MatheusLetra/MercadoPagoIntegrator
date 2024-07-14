@@ -1,5 +1,63 @@
+export interface ICustomerFindByCustomerIdBody {
+  customerId: string;
+}
 export interface ICustomerFindAndCreateBody {
   email: string;
+}
+
+export interface ICustomerFindByCustomerIdResponse {
+  id: string 
+  email: string
+  first_name: string
+  last_name: string
+  phone: {
+    area_code: string
+    number: string
+  }
+  identification: {
+    type: string
+    number: string
+  }
+  address: {
+    id: string
+    zip_code: string
+    street_name: string
+  }
+  description: string
+  date_created: string
+  metadata: {
+    source_sync: string
+  }
+  default_address: string
+  cards: {
+    payment_method: {}
+    security_code: {}
+    issuer: {}
+    cardholder: {}
+  }
+  addresses: {
+    id: string
+    street_name: string
+    zip_code: string
+    city: {
+      id: string
+      name: string
+    }
+    state: {
+      id: string
+      name: string
+    }
+    country: {
+      id: string
+      name: string
+    }
+    neighborhood: {
+      name: string
+    }
+    municipality: {}
+    date_created: string
+  }
+  live_mode: boolean
 }
 
 export interface ICustomerFindByEmailResponse {
